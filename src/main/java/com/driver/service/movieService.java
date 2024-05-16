@@ -25,14 +25,13 @@ public class movieService {
         }
     }
 
-    public void addmoviedirector(Movie movie) {
-        if(movieRepo.directordb.containsKey(movie.getMovieDirector())){
-            movieRepo.directordb.get(movie.getMovieDirector()).add(movie);
-        }
-        else{
-            movieRepo.directordb.put(movie.getMovieDirector(),new ArrayList<>());
-            movieRepo.directordb.get(movie.getMovieDirector()).add(movie);
-
+    public void addmoviedirector(String movie) {
+        if(movieRepo.moviedb.containsKey(movie)){
+            if(movieRepo.directordb.containsKey(movieRepo.moviedb.get(movie))){
+                if(movieRepo.directordb.containsKey(movieRepo.moviedb.get(movie).getMovieDirector())){
+                    movieRepo.directordb.get(movieRepo.moviedb.get(movie).getMovieDirector()).add(movieRepo.moviedb.get(movie));
+                }
+            }
         }
     }
 
