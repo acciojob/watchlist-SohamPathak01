@@ -2,6 +2,7 @@ package com.driver.service;
 
 import com.driver.Repo.MovieRepo;
 import com.driver.entity.Movie;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +11,7 @@ import java.util.List;
 
 @Service
 public class movieService {
+    @Autowired
     MovieRepo movieRepo;
     public void addmovie(Movie movie) {
         if(!movieRepo.moviedb.containsKey((movie.getMovieName()))){

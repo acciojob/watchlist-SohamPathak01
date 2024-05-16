@@ -2,6 +2,7 @@ package com.driver.controller;
 
 import com.driver.entity.Movie;
 import com.driver.service.movieService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import java.util.List;
 @RequestMapping("movies")
 public class  movieController {
 
+    @Autowired
     movieService ms;
     @PostMapping("/add-movie")
     public ResponseEntity<String> addMovie(@RequestBody Movie movie){
