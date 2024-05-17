@@ -61,11 +61,28 @@ public class movieService {
     }
 
     public void deleteDirector(String director) {
-        if(movieRepo.direcdb.containsKey(director))
-         movieRepo.direcdb.remove((director));
+        if(movieRepo.directordb.containsKey(director)){
+            List<String> mn=movieRepo.directordb.get(director);
+            for(String i:mn){
+                if(movieRepo.moviedb.containsKey(i)){
+                    movieRepo.moviedb.remove(i);
+                }
+            }
+            movieRepo.directordb.remove(director);
+        }
+        if(movieRepo.direcdb.containsKey(director)){
+            movieRepo.direcdb.remove(director);
+        }
     }
 
     public void DeleteAll() {
+        movieRepo.direcdb.clear();
+        for(String dn:movieRepo.directordb.keySet()){
+            List<String> mn=movieRepo.directordb.get(dn);
+            for(String i:mn) {
+                movieRepo.moviedb.remove(i);
+            }
+        }
         movieRepo.directordb.clear();
     }
 }
