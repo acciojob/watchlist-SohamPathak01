@@ -1,6 +1,7 @@
 package com.driver.service;
 
 import com.driver.Repo.MovieRepo;
+import com.driver.entity.Director;
 import com.driver.entity.Movie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,19 +20,18 @@ public class movieService {
         }
     }
 
-    public void adddirecor(String Director) {
-        if(!movieRepo.directordb.containsKey(Director)){
-            movieRepo.directordb.put(Director,new ArrayList<Movie>());
+    public void adddirecor(Director Director) {
+        if(!movieRepo.direcdb.containsKey(Director.getDirectorName())){
+            movieRepo.direcdb.put(Director.getDirectorName(),Director);
         }
     }
 
-    public void addmoviedirector(String movie) {
-        if(movieRepo.moviedb.containsKey(movie)){
-            if(movieRepo.directordb.containsKey(movieRepo.moviedb.get(movie))){
-                if(movieRepo.directordb.containsKey(movieRepo.moviedb.get(movie).getMovieDirector())){
-                    movieRepo.directordb.get(movieRepo.moviedb.get(movie).getMovieDirector()).add(movieRepo.moviedb.get(movie));
-                }
+    public void addmoviedirector(String movie,String director) {
+        if(movieRepo.moviedb.containsKey(movie)&&movieRepo.direcdb.containsKey(director)){
+            if(!movieRepo.directordb.containsKey(director)){
+                movieRepo.directordb.put(director,new ArrayList<>());
             }
+            movieRepo.directordb.get(director).add(movie);
         }
     }
 
@@ -42,14 +42,14 @@ public class movieService {
         return null;
     }
 
-    public String getDirector(String director) {
-        if(movieRepo.directordb.containsKey(director)){
-            return director;
+    public Director getDirector(String director) {
+        if(movieRepo.direcdb.containsKey(director)){
+            return movieRepo.direcdb.get(director);
         }
         return null;
     }
 
-    public List<Movie> getMovieByDirector(String director) {
+    public List<String> getMovieByDirector(String director) {
         if(movieRepo.directordb.containsKey(director)){
             return movieRepo.directordb.get(director);
         }
@@ -61,8 +61,8 @@ public class movieService {
     }
 
     public void deleteDirector(String director) {
-        if(movieRepo.directordb.containsKey((director)))
-         movieRepo.directordb.remove((director));
+        if(movieRepo.direcdb.containsKey(director))
+         movieRepo.direcdb.remove((director));
     }
 
     public void DeleteAll() {

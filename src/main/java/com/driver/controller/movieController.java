@@ -1,5 +1,6 @@
 package com.driver.controller;
 
+import com.driver.entity.Director;
 import com.driver.entity.Movie;
 import com.driver.service.movieService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,14 +24,14 @@ public class  movieController {
     }
 
     @PostMapping("/add-director")
-    public ResponseEntity<String> addDirector(@RequestBody String director){
+    public ResponseEntity<String> addDirector(@RequestBody Director director){
         ms.adddirecor(director);
         return new ResponseEntity<>("New Director Added",HttpStatus.OK);
     }
 
     @PutMapping("/add-movie-director-pair")
-    public ResponseEntity<String> addMovieDirector(@RequestParam String movie){
-        ms.addmoviedirector(movie);
+    public ResponseEntity<String> addMovieDirector(@RequestParam String movie,@RequestParam String director){
+        ms.addmoviedirector(movie,director);
         return new ResponseEntity<>("movie director pair added",HttpStatus.OK);
     }
 
@@ -39,12 +40,12 @@ public class  movieController {
         return new ResponseEntity<>(ms.getMovie(movie),HttpStatus.FOUND);
     }
     @GetMapping("get-director-by-name/{name}")
-    public  ResponseEntity<String> getdirector(@PathVariable String Director){
+    public  ResponseEntity<Director> getdirector(@PathVariable String Director){
         return new ResponseEntity<>(ms.getDirector(Director),HttpStatus.FOUND);
     }
 
     @GetMapping("get-movies-by-director-name/{director}")
-    public  ResponseEntity<List<Movie>> getMovieByDirector(@PathVariable String Director){
+    public  ResponseEntity<List<String>> getMovieByDirector(@PathVariable String Director){
         return new ResponseEntity<>(ms.getMovieByDirector(Director),HttpStatus.FOUND);
     }
 
